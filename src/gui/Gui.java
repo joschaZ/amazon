@@ -38,14 +38,13 @@ public class Gui {
 	 */
 	public static void gui() throws IOException, InterruptedException {
 
-
 		JFrame f = new JFrame("A JFrame");
 		f.setSize(800, 600);
 		f.setLocation(300, 200);
 		f.getContentPane().setLayout(null);
 
 		JButton btnGetTextFrom = new JButton("Read URL");
-		btnGetTextFrom.setBounds(677, 6, 106, 29);
+		btnGetTextFrom.setBounds(633, 6, 85, 29);
 		f.getContentPane().add(btnGetTextFrom);
 
 		textField_urlAdress = new JTextField();
@@ -56,7 +55,6 @@ public class Gui {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(6, 33, 777, 12);
 		f.getContentPane().add(separator);
-
 		
 		String stringGood = "";
 		int countGood = 0;
@@ -133,7 +131,6 @@ public class Gui {
 
 						ex.printStackTrace();
 					}
-
 				}
 			}
 		});
@@ -144,26 +141,16 @@ public class Gui {
 		f.getContentPane().add(label);
 		
 		textField_seitenZahl = new JTextField();
-		textField_seitenZahl.setBounds(595, 5, 75, 28);
+		textField_seitenZahl.setBounds(595, 5, 42, 28);
 		f.getContentPane().add(textField_seitenZahl);
 		textField_seitenZahl.setColumns(10);
-		f.setVisible(true);
-
-
-		
-		
 		
 		btnGetTextFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				int seiten = Integer.parseInt(textField_seitenZahl.getText());
 				String link = textField_urlAdress.getText();
-				
 				try {
-					
-					
 					Konsole.control(link, seiten);
-					
-					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -174,16 +161,15 @@ public class Gui {
 			}
 		});
 		
-		textArea.setText(content);
-		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				textArea.setText(content);
 			}
 		});
-		btnUpdate.setBounds(385, 46, 117, 21);
+		btnUpdate.setBounds(719, 10, 64, 21);
 		f.getContentPane().add(btnUpdate);
 		
+		f.setVisible(true);
 	}
 }
