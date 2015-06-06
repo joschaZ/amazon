@@ -1,12 +1,17 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,21 +22,22 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import utilities.Konsole;
 import utilities.Url;
 
 public class Gui {
 	
-	private static JTextField textField; // Your class name
+	private static JTextField textField_urlAdress;
+	private static JTextField textField_seitenZahl;
+	public static String content;
 	private static JTable table;
 	String columnNames[] = { "Column 1", "Column 2" };
 
 	/**
-	 * @throws IOException 
 	 * @wbp.parser.entryPoint
 	 */
-	public static void gui() throws IOException {
+	public static void gui() throws IOException, InterruptedException {
 
-		String t = Url.review;
 
 		JFrame f = new JFrame("A JFrame");
 		f.setSize(800, 600);
@@ -39,13 +45,13 @@ public class Gui {
 		f.getContentPane().setLayout(null);
 
 		JButton btnGetTextFrom = new JButton("Read URL");
-		btnGetTextFrom.setBounds(651, 6, 132, 29);
+		btnGetTextFrom.setBounds(677, 6, 106, 29);
 		f.getContentPane().add(btnGetTextFrom);
 
-		textField = new JTextField();
-		textField.setBounds(16, 4, 596, 30);
-		f.getContentPane().add(textField);
-		textField.setColumns(10);
+		textField_urlAdress = new JTextField();
+		textField_urlAdress.setBounds(16, 4, 567, 30);
+		f.getContentPane().add(textField_urlAdress);
+		textField_urlAdress.setColumns(10);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(6, 33, 777, 12);
@@ -95,7 +101,7 @@ public class Gui {
 		final JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane_1.setViewportView(textArea);
-		textArea.setText(t);
+		
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		table.addMouseListener(new MouseAdapter() {
@@ -136,7 +142,48 @@ public class Gui {
 		label.setBackground(Color.YELLOW);
 		label.setBounds(518, 46, 259, 16);
 		f.getContentPane().add(label);
+		
+		textField_seitenZahl = new JTextField();
+		textField_seitenZahl.setBounds(595, 5, 75, 28);
+		f.getContentPane().add(textField_seitenZahl);
+		textField_seitenZahl.setColumns(10);
 		f.setVisible(true);
 
+
+		
+		
+		
+		btnGetTextFrom.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				int seiten = Integer.parseInt(textField_seitenZahl.getText());
+				String link = textField_urlAdress.getText();
+				
+				try {
+					
+					
+					Konsole.control(link, seiten);
+					
+					
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		textArea.setText(content);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				textArea.setText(content);
+			}
+		});
+		btnUpdate.setBounds(385, 46, 117, 21);
+		f.getContentPane().add(btnUpdate);
+		
 	}
 }

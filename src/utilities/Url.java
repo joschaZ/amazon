@@ -1,5 +1,7 @@
 package utilities;
 
+import gui.Gui;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +14,8 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Url {
 
@@ -44,12 +48,11 @@ public class Url {
 		 while((string = br.readLine()) != null) {
 			if (string.contains("<span class=\"a-size-base review-text\">")) {
 				
-				//TODO: Falsches Regex
-				string1 = string.replaceAll("<div id=\"cm_cr-review_list\" class=\"a-section a-spacing-none reviews celwidget\">.*?<span class=\"a-size-base review-text\">", "");
-			   string2 = string1.replaceAll("</span></div><div class=\"a-row a-spacing-top-small review-comments\">.*?<ul class=\"a-viewoptions-list a-viewoptions-section a-span12\">", "");
-				reviewTexte.add(string1);
-				sb.append(string1);
+				reviewTexte.add(string);
+				sb.append(string);
 				sb.append("\n");
+				Gui gui = new Gui();
+				gui.content = sb.toString();
 			}
 		}
 		 br.close();
