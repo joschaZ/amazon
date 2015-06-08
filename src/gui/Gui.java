@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 
 import utilities.Konsole;
 import utilities.Url;
+import javax.swing.JProgressBar;
+import javax.swing.JComboBox;
 
 public class Gui {
 	
@@ -31,6 +33,7 @@ public class Gui {
 	private static JTextField textField_seitenZahl;
 	public static String content;
 	private static JTable table;
+	private static int seiten;
 	String columnNames[] = { "Column 1", "Column 2" };
 
 	/**
@@ -48,9 +51,10 @@ public class Gui {
 		f.getContentPane().add(btnGetTextFrom);
 
 		textField_urlAdress = new JTextField();
-		textField_urlAdress.setBounds(16, 4, 567, 30);
+		textField_urlAdress.setBounds(16, 4, 554, 30);
 		f.getContentPane().add(textField_urlAdress);
 		textField_urlAdress.setColumns(10);
+		textField_urlAdress.setText("url eingeben:");
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(6, 33, 777, 12);
@@ -59,7 +63,7 @@ public class Gui {
 		String stringGood = "";
 		int countGood = 0;
 		String[] good = new String[2007];
-		BufferedReader brGood = new BufferedReader(new FileReader("/Users/joscha/workspaces/Lucene/Amazon/src/WordLists/positive-words.txt"));
+		BufferedReader brGood = new BufferedReader(new FileReader("src/WordLists/positive-words.txt"));
 		 while((stringGood = brGood.readLine()) != null) {
 			 good[countGood] = stringGood;
 			 countGood++;
@@ -68,7 +72,7 @@ public class Gui {
 		 String stringBad = "";
 			int countBad= 0;
 			String[] bad = new String[4784];
-			BufferedReader brBad = new BufferedReader(new FileReader("/Users/joscha/workspaces/Lucene/Amazon/src/WordLists/negative-words.txt"));
+			BufferedReader brBad = new BufferedReader(new FileReader("src/WordLists/negative-words.txt"));
 			 while((stringBad = brBad.readLine()) != null) {
 				 bad[countBad] = stringBad;
 				 countBad++;
@@ -139,15 +143,31 @@ public class Gui {
 		label.setBackground(Color.YELLOW);
 		label.setBounds(518, 46, 259, 16);
 		f.getContentPane().add(label);
+
+		Integer comboBoxListe[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+		JComboBox comboBox = new JComboBox(comboBoxListe);
+		comboBox.setBounds(693, 42, 72, 27);
 		
+		f.getContentPane().add(comboBox);
+		
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				// ActionListener implementieren
+				
+			}
+		});
+
 		textField_seitenZahl = new JTextField();
-		textField_seitenZahl.setBounds(595, 5, 42, 28);
+		textField_seitenZahl.setBounds(573, 5, 64, 28);
 		f.getContentPane().add(textField_seitenZahl);
 		textField_seitenZahl.setColumns(10);
+		textField_seitenZahl.setText("Seitenzahl: ");
 		
 		btnGetTextFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				int seiten = Integer.parseInt(textField_seitenZahl.getText());
+				
 				String link = textField_urlAdress.getText();
 				try {
 					Konsole.control(link, seiten);
@@ -169,6 +189,8 @@ public class Gui {
 		});
 		btnUpdate.setBounds(719, 10, 64, 21);
 		f.getContentPane().add(btnUpdate);
+		
+       
 		
 		f.setVisible(true);
 	}

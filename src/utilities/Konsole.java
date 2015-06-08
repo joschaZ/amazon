@@ -8,6 +8,7 @@ public class Konsole {
 	
 	private static boolean online = true;
 	
+	// http://www.amazon.com/AH1650SR-Feet-16-Gauge-Speaker-Wire/product-reviews/B0029HO66G/ref=cm_cr_pr_btm_link_2?ie=UTF8&showViewpoints=1&sortBy=helpful&reviewerType=all_reviews&formatType=all_formats&filterByStar=all_stars&pageNumber=1
 	
 	public static void control(String link, int seiten) throws InterruptedException, IOException{
 
@@ -15,10 +16,7 @@ public class Konsole {
 		
 		List<String> urlList = utilities.Utilities.buildURL(link, seiten );
 		
-		
-		
 	// "B008RHGC7S"	
-		
 	
 	if(online == true){
 		for (String string : urlList) {
@@ -31,13 +29,12 @@ public class Konsole {
 	Url.reviewToToken();
       
 	System.out.println("##############");
-//	System.out.println("Produkt: " + produktName());
-//	System.out.println("Review Texte.size: " + reviewTexte.size());
 	System.out.println("Dursuchte url's:");
 	for (String string : urlList) {
 		System.out.println(string);
 	}
 	System.out.println("##############");
-	utilities.Utilities.countWords("src/texts/reviewsList.txt");
+	Utilities.wordOccurencies();
+//	utilities.Utilities.countWords("src/texts/reviewsList.txt");
 	}
 }
