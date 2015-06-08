@@ -3,21 +3,15 @@ package utilities;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
 
 public class Utilities {
 	
@@ -27,7 +21,7 @@ public class Utilities {
 		
 		
 		for(int i = 1; i <= seiten; i++){
-			String string = "http://www.amazon.com/AH1650SR-Feet-16-Gauge-Speaker-Wire/product-reviews/B0029HO66G/ref=cm_cr_pr_btm_link_2?ie=UTF8&showViewpoints=1&sortBy=helpful&reviewerType=all_reviews&formatType=all_formats&filterByStar=all_stars&pageNumber=" + i;
+			String string = produkt + i;
 			urlList.add(string);
 		}
 		return urlList;

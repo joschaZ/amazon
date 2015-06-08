@@ -12,9 +12,10 @@ public class Konsole {
 	
 	public static void control(String link, int seiten) throws InterruptedException, IOException{
 
-		link.substring(0, link.length()-1);
 		
-		List<String> urlList = utilities.Utilities.buildURL(link, seiten );
+		String temp = link.substring(0, link.length()-1);
+		
+		List<String> urlList = utilities.Utilities.buildURL(temp, seiten );
 		
 	// "B008RHGC7S"	
 	

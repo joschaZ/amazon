@@ -5,15 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -23,14 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import utilities.Konsole;
-import utilities.Url;
-import javax.swing.JProgressBar;
-import javax.swing.JComboBox;
 
 public class Gui {
 	
 	private static JTextField textField_urlAdress;
-	private static JTextField textField_seitenZahl;
 	public static String content;
 	private static JTable table;
 	private static int seiten;
@@ -141,32 +133,24 @@ public class Gui {
 
 		JLabel label = new JLabel("Sentiment Table");
 		label.setBackground(Color.YELLOW);
-		label.setBounds(518, 46, 259, 16);
+		label.setBounds(524, 47, 259, 16);
 		f.getContentPane().add(label);
 
-		Integer comboBoxListe[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		String comboBoxListe[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
 		JComboBox comboBox = new JComboBox(comboBoxListe);
-		comboBox.setBounds(693, 42, 72, 27);
+		comboBox.setBounds(567, 7, 72, 27);
 		
 		f.getContentPane().add(comboBox);
 		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				// ActionListener implementieren
-				
+				seiten = Integer.parseInt((String)comboBox.getSelectedItem());
 			}
 		});
-
-		textField_seitenZahl = new JTextField();
-		textField_seitenZahl.setBounds(573, 5, 64, 28);
-		f.getContentPane().add(textField_seitenZahl);
-		textField_seitenZahl.setColumns(10);
-		textField_seitenZahl.setText("Seitenzahl: ");
 		
 		btnGetTextFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				int seiten = Integer.parseInt(textField_seitenZahl.getText());
 				
 				String link = textField_urlAdress.getText();
 				try {
@@ -181,6 +165,7 @@ public class Gui {
 			}
 		});
 		
+		// TODO: Button kann weg, wenn irgendwie signalisiert wird das der Ladevorgang abgeschlossenn ist 
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
