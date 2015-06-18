@@ -1,5 +1,7 @@
 package utilities;
 
+import gui.Gui;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class Konsole {
 		for (String string : urlList) {
 			System.out.println("Quelltext ziehen.....");
 			utilities.Utilities.getQuelltext(string);
-			Thread.sleep(500);
+//			Thread.sleep(500);
 		}
 	}
 	Url.reviewTextToFile();
@@ -34,6 +36,8 @@ public class Konsole {
 	for (String string : urlList) {
 		System.out.println(string);
 	}
+	Gui gui = new Gui();
+	gui.setText = true;
 	System.out.println("##############");
 	Utilities.wordOccurencies();
 //	utilities.Utilities.countWords("src/texts/reviewsList.txt");

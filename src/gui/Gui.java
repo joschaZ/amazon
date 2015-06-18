@@ -5,18 +5,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+import com.sun.javafx.stage.WindowCloseRequestHandler;
 
 import utilities.Konsole;
 
@@ -26,6 +33,7 @@ public class Gui {
 	public static String content;
 	private static JTable table;
 	private static int seiten;
+	public static boolean setText = false;
 	String columnNames[] = { "Column 1", "Column 2" };
 
 	/**
@@ -33,7 +41,7 @@ public class Gui {
 	 */
 	public static void gui() throws IOException, InterruptedException {
 
-		JFrame f = new JFrame("A JFrame");
+		JFrame f = new JFrame("Amazon Reviews");
 		f.setSize(800, 600);
 		f.setLocation(300, 200);
 		f.getContentPane().setLayout(null);
@@ -52,33 +60,33 @@ public class Gui {
 		separator.setBounds(6, 33, 777, 12);
 		f.getContentPane().add(separator);
 		
-		String stringGood = "";
-		int countGood = 0;
-		String[] good = new String[2007];
-		BufferedReader brGood = new BufferedReader(new FileReader("src/WordLists/positive-words.txt"));
-		 while((stringGood = brGood.readLine()) != null) {
-			 good[countGood] = stringGood;
-			 countGood++;
-		 }
-		 
-		 String stringBad = "";
-			int countBad= 0;
-			String[] bad = new String[4784];
-			BufferedReader brBad = new BufferedReader(new FileReader("src/WordLists/negative-words.txt"));
-			 while((stringBad = brBad.readLine()) != null) {
-				 bad[countBad] = stringBad;
-				 countBad++;
-			 }
-			 
-			 //TODO: rowDate Array automatisch befüllen lassen
-		Object rowData[][] = { { good[1], bad[1] }, { good[2], bad[2] }, { good[3], bad[3] }, { good[4], bad[4] }, { good[5], bad[5] }, { good[6], bad[6] }, { good[7], bad[7] }, { good[8], bad[8] }, { good[9], bad[9] }, { good[0], bad[0] }, };
-		Object columnNames[] = { "Positive", "Negative" };
+//		String stringGood = "";
+//		int countGood = 0;
+//		String[] good = new String[2007];
+//		BufferedReader brGood = new BufferedReader(new FileReader("src/WordLists/positive-words.txt"));
+//		 while((stringGood = brGood.readLine()) != null) {
+//			 good[countGood] = stringGood;
+//			 countGood++;
+//		 }
+//		 
+//		 String stringBad = "";
+//			int countBad= 0;
+//			String[] bad = new String[4784];
+//			BufferedReader brBad = new BufferedReader(new FileReader("src/WordLists/negative-words.txt"));
+//			 while((stringBad = brBad.readLine()) != null) {
+//				 bad[countBad] = stringBad;
+//				 countBad++;
+//			 }
+//			 
+//			 //TODO: rowDate Array automatisch befüllen lassen
+//		Object rowData[][] = { { good[1], bad[1] }, { good[2], bad[2] }, { good[3], bad[3] }, { good[4], bad[4] }, { good[5], bad[5] }, { good[6], bad[6] }, { good[7], bad[7] }, { good[8], bad[8] }, { good[9], bad[9] }, { good[0], bad[0] }, };
+//		Object columnNames[] = { "Positive", "Negative" };
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(519, 74, 259, 377);
 		f.getContentPane().add(scrollPane);
 
-		table = new JTable(rowData, columnNames);
+//		table = new JTable(rowData, columnNames);
 		scrollPane.setViewportView(table);
 		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);
@@ -156,10 +164,8 @@ public class Gui {
 				try {
 					Konsole.control(link, seiten);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -175,8 +181,43 @@ public class Gui {
 		btnUpdate.setBounds(719, 10, 64, 21);
 		f.getContentPane().add(btnUpdate);
 		
-       
+		if(setText == true)
+		textArea.setText(content);
 		
 		f.setVisible(true);
+		
+		// Inhalt aus Ordner Amazon/scr/texts löschen, Dateien beibehalten
+		f.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	JCheckBox deleteContent = new JCheckBox("Delete file content?");
+		    	
+		        if (JOptionPane.showConfirmDialog(f, deleteContent, "Exit?", 
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+		        	
+		        	if(deleteContent.isSelected()){
+						try {
+							FileOutputStream writer = new FileOutputStream("src/texts/Quelltext.txt");
+							writer.close();
+							FileOutputStream writer1 = new FileOutputStream("src/texts/reviews.txt");
+							writer1.close();
+			        		FileOutputStream writer2 = new FileOutputStream("src/texts/reviewsList.txt");
+			        		writer2.close();
+			        		System.exit(0);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		        		
+		        	}
+		        	else
+		            System.exit(0);
+		        }
+		    }
+		});
 	}
 }

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,11 +72,25 @@ public class Utilities {
 			
 			i++;
 		}
-		System.out.println(map.size());
-		for (String key : map.keySet()) {
-	        System.out.println(key + " " + map.get(key));
-	    }
+//		System.out.println(map.size());
+//		for (String key : map.keySet()) {
+//	        System.out.println(key + " " + map.get(key));
+//	    }
 		
+		List<Map.Entry<String,Integer>> entries = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
+	    Collections.sort(entries,	new Comparator<Map.Entry<String,Integer>>() {
+	    		public int compare(Map.Entry<String,Integer> a, Map.Entry<String,Integer> b) {
+	    			return Integer.compare(b.getValue(), a.getValue());
+	    		}
+	    	}
+	    );
+
+	    
+	    for (Map.Entry<String,Integer> e : entries) {
+	    	System.out.println(e.getKey()+":"+e.getValue());
+	    	
+	    	
+	    }
 		
 	}
 	
