@@ -1,6 +1,7 @@
 package main;
 
-import gui.Gui;
+
+import gui.GuiSwt;
 
 import java.io.IOException;
 
@@ -8,11 +9,10 @@ public class Application {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 
-		// a+
-//		Utilities ut = new Utilities();
-//		ut.wordOccurencies();
-//		
-		Gui window = new Gui();
+
+		// SWT Version von GUI
+		GuiSwt window = new GuiSwt();
 		window.gui();
+		
 	}
 }
