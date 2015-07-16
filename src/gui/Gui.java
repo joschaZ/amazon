@@ -5,13 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +18,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import utilities.Konsole;
-import utilities.Url;
 
 public class Gui {
 	
@@ -61,7 +55,7 @@ public class Gui {
 		String stringGood = "";
 		int countGood = 0;
 		String[] good = new String[2007];
-		BufferedReader brGood = new BufferedReader(new FileReader("/Users/joscha/workspaces/Lucene/Amazon/src/WordLists/positive-words.txt"));
+		BufferedReader brGood = new BufferedReader(new FileReader("src/WordLists/positive-words.txt"));
 		 while((stringGood = brGood.readLine()) != null) {
 			 good[countGood] = stringGood;
 			 countGood++;
@@ -70,7 +64,7 @@ public class Gui {
 		 String stringBad = "";
 			int countBad= 0;
 			String[] bad = new String[4784];
-			BufferedReader brBad = new BufferedReader(new FileReader("/Users/joscha/workspaces/Lucene/Amazon/src/WordLists/negative-words.txt"));
+			BufferedReader brBad = new BufferedReader(new FileReader("src/WordLists/positive-words.txt"));
 			 while((stringBad = brBad.readLine()) != null) {
 				 bad[countBad] = stringBad;
 				 countBad++;
